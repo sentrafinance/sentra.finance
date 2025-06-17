@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DANA PINJAM - Sentra Finance</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #00c896, #007bff);
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #007bff;
+      font-size: 24px;
+    }
+
+    p {
+      margin-bottom: 25px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .result-box {
+      background-color: #f1f1f1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .highlight {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    button {
+      background: linear-gradient(90deg, #00c896, #007bff);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      margin-top: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    #jaminanSection {
+      display: none;
+      margin-bottom: 15px;
+    }
+
+    #jaminanSection label {
+      display: inline-block;
+      margin-right: 15px;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    #peringatan {
+      color: #d62828;
+      font-size: 13px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    /* Styling for logo image */
+    .logo-img {
+      max-width: 60%;
+      height: auto;
+      margin-bottom: 20px;
+      max-width: 150px; /* Adjust this to fit your design */
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logodapin.png" alt="Logo Aplikasi" class="logo-img" />
+    <p>Pinjaman mudah dengan proses cepat. Tenor fleksibel hingga 4 bulan!</p>
+
+    <!-- Logo Image -->
+    
+
+    <!-- Form Input -->
+    <label for="namaPelanggan">Nama Lengkap</label>
+    <input type="text" id="namaPelanggan" placeholder="Masukkan nama lengkap" required />
+
+    <label for="noRekening">Nomor Rekening/E-Wallet</label>
+    <input type="text" id="noRekening" placeholder="Contoh: 08123456789" required />
+
+    <label for="bankEwallet">Bank/E-Wallet</label>
+    <input type="text" id="bankEwallet" placeholder="Contoh: BCA/OVO" required />
+
+    <label for="tanggalPembayaran">Tanggal Pembayaran</label>
+    <input type="date" id="tanggalPembayaran" required />
+
+    <label for="pinjaman">Jumlah Pinjaman (Rp)</label>
+    <input type="text" id="pinjaman" placeholder="Contoh: 3.000.000" required />
+
+    <label for="tenor">Tenor Cicilan (bulan)</label>
+    <select id="tenor" required>
+      <option value="">Pilih tenor</option>
+    </select>
+
+    <div id="jaminanSection">
+      <label><input type="radio" name="jaminan" value="ada" /> Ada jaminan</label>
+      <label><input type="radio" name="jaminan" value="tidak" /> Tidak ada jaminan</label>
+    </div>
+
+    <div id="peringatan">⚠ Biaya tambahan 2.5% akan dikenakan karena tidak ada jaminan</div>
+
+    <button onclick="hitungSemua()">Hitung</button>
+
+    <!-- Hasil Perhitungan -->
+    <div class="result-box" id="hasilSection">
+      <p><strong>Cicilan per Bulan:</strong> <span id="cicilan">-</span></p>
+      <p><strong>Biaya Admin:</strong> <span id="biayaAdmin">-</span></p>
+      <p><strong>Biaya Tambahan Tanpa Jaminan:</strong> <span id="biayaTambahan">-</span></p>
+      <p><strong>Total Diterima:</strong> <span id="totalDiterima" class="highlight">-</span></p>
+    </div>
+
+    <a id="whatsappLink" href="" target="_blank">
+      <button>Ajukan Sekarang</button>
+    </a>
+  </div>
+
+  <script>
+    const pinjamanInput = document.getElementById("pinjaman");
+    const tenorSelect = document.getElementById("tenor");
+    const cicilanText = document.getElementById("cicilan");
+    const biayaAdminText = document.getElementById("biayaAdmin");
+    const biayaTambahanText = document.getElementById("biayaTambahan");
+    const totalDiterimaText = document.getElementById("totalDiterima");
+    const jaminanSection = document.getElementById("jaminanSection");
+    const peringatan = document.getElementById("peringatan");
+    const hasilSection = document.getElementById("hasilSection");
+
+    let hasilCicilan = "", hasilAdmin = "", hasilTambahan = "", hasilTotal = "", hasilJaminan = "";
+
+    function unformatRupiah(str) {
+      return parseInt(str.replace(/\./g, "")) || 0;
+    }
+
+    function formatRupiah(number) {
+      return number.toLocaleString("id-ID");
+    }
+
+    pinjamanInput.addEventListener("input", function () {
+      let num = unformatRupiah(this.value);
+      this.value = formatRupiah(num);
+
+      tenorSelect.innerHTML = '<option value="">Pilih tenor</option>';
+      if (num > 0) {
+        if (num <= 999000) addTenorOption(1);
+        else if (num <= 1999000) addTenorOption(1, 2);
+        else if (num <= 4999999) addTenorOption(1, 2, 3);
+        else addTenorOption(1, 2, 3, 4);
+      }
+
+      jaminanSection.style.display = num > 2999999 ? "block" : "none";
+      peringatan.style.display = "none";
+      hasilSection.style.display = "none";
+    });
+
+    function addTenorOption(...options) {
+      options.forEach(val => {
+        const opt = document.createElement("option");
+        opt.value = val;
+        opt.textContent = val + " bulan";
+        tenorSelect.appendChild(opt);
+      });
+    }
+
+    function hitungSemua() {
+      const pinjaman = unformatRupiah(pinjamanInput.value);
+      const tenor = parseInt(tenorSelect.value);
+      const jaminanEl = document.querySelector('input[name="jaminan"]:checked');
+      const jaminanVal = jaminanEl ? jaminanEl.value : "-";
+
+      // Validasi input
+      const namaPelanggan = document.getElementById("namaPelanggan").value.trim();
+      const noRekening = document.getElementById("noRekening").value.trim();
+      const bankEwallet = document.getElementById("bankEwallet").value.trim();
+      const tanggalPembayaran = document.getElementById("tanggalPembayaran").value;
+
+      if (!namaPelanggan || !noRekening || !bankEwallet || !tanggalPembayaran) {
+        alert("Harap lengkapi semua data pelanggan!");
+        return;
+      }
+
+      if (!pinjaman || !tenor) {
+        alert("Harap masukkan jumlah pinjaman dan pilih tenor!");
+        return;
+      }
+
+      let admin = 0;
+      if (pinjaman <= 800000) admin = 20000;
+      else if (pinjaman <= 1499000) admin = 50000;
+      else if (pinjaman <= 2000000) admin = 75000;
+      else if (pinjaman <= 4000000) admin = 100000;
+      else admin = pinjaman * 0.025;
+
+      let tambahan = 0;
+      if (pinjaman > 2999999 && jaminanVal === "tidak") {
+        tambahan = pinjaman * 0.025;
+        peringatan.style.display = "block";
+      } else {
+        peringatan.style.display = "none";
+      }
+
+      const cicilan = (pinjaman / tenor) + (pinjaman / 10.6);
+      const totalDiterima = pinjaman - admin - tambahan;
+
+      hasilCicilan = "Rp " + formatRupiah(Math.round(cicilan));
+      hasilAdmin = "Rp " + formatRupiah(Math.round(admin));
+      hasilTambahan = "Rp " + formatRupiah(Math.round(tambahan));
+      hasilTotal = "Rp " + formatRupiah(Math.round(totalDiterima));
+      hasilJaminan = jaminanVal === "tidak" ? "Tidak ada jaminan" : jaminanVal === "ada" ? "Ada jaminan" : "-";
+
+      // Tampilkan hasil
+      cicilanText.textContent = hasilCicilan;
+      biayaAdminText.textContent = hasilAdmin;
+      biayaTambahanText.textContent = hasilTambahan;
+      totalDiterimaText.textContent = hasilTotal;
+      hasilSection.style.display = "block";
+
+      // Update link WhatsApp
+      const whatsappLink = document.getElementById("whatsappLink");
+      const message = encodeURIComponent(
+        `Halo Admin Sentra Finance, saya ${namaPelanggan} ingin mengajukan DANA PINJAM\n\n` +
+        `🔹 Jumlah Pinjaman: Rp ${formatRupiah(pinjaman)}\n` +
+        `🔹 Tenor: ${tenor} bulan\n` +
+        `🔹 Jaminan: ${hasilJaminan}\n` +
+        `🔹 Cicilan per Bulan: ${hasilCicilan}\n` +
+        `🔹 Total Diterima: ${hasilTotal}\n\n` +
+        `*Detail Nasabah*\n` +
+        `▫ Rekening/EWallet: ${noRekening}\n` +
+        `▫ Bank/EWallet: ${bankEwallet}\n` +
+        `▫ Tanggal Pembayaran: ${tanggalPembayaran}\n\n` +
+        `Mohon konfirmasi persetujuan. Terima kasih.`
+      );
+      whatsappLink.href = `https://wa.me/6281290413077?text=${message}`;
+    }
+  </script>
+</body>
+</html>
