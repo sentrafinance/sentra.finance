@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Halaman Awal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #00c896, #007bff);
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 23px;
+      color: #000000;
+    }
+
+    .container img {
+      max-width: 70%; /* Menyesuaikan ukuran gambar dengan lebar kontainer */
+      height: auto;    /* Menjaga proporsi gambar */
+      margin-bottom: 20px;
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    .button {
+      background: linear-gradient(90deg, #00c896, #007bff);
+      border: none;
+      border-radius: 10px;
+      color: white;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    .desc {
+      font-size: 13px;
+      color: #444;
+      margin-top: 6px;
+    }
+
+    /* Modal popup for Syarat dan Ketentuan */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      overflow: auto;
+      padding-top: 60px;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 8px;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* Tombol Setuju dan Lanjutkan */
+    #confirmButton {
+      background: linear-gradient(90deg, #00c896, #007bff);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      margin-top: 10px;
+    }
+
+    #confirmButton:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 22px;
+      }
+
+      .button {
+        font-size: 15px;
+        padding: 12px 16px;
+      }
+
+      .desc {
+        font-size: 12px;
+      }
+
+      .container img {
+        max-width: 70%; /* Ukuran logo lebih kecil pada handphone */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h3>KALKULATOR CICILAN SENTRA FINANCE</h3>
+    <img src="logosf.png" alt="Logo Aplikasi" /> <!-- Logo langsung ditampilkan tanpa wrapper -->
+
+    <div class="button-container">
+      <div>
+        <button class="button" id="openModalButtonDanaPinjam">Dana Pinjam</button>
+        <p class="desc">Pinjaman lebih dari Rp 800.000 dengan berbagai tenor</p>
+      </div>
+      <div>
+        <button class="button" id="openModalButtonDanaCepat">Dana Cepat</button>
+        <p class="desc">Pinjam Flexibel max Rp 500.000 tanpa bunga</p>
+      </div>
+      <div>
+        <button class="button" id="openModalButtonCicilBarang">Cicil Barang</button>
+        <p class="desc">Cicil Barang lebih mudah, Cicilan lebih murah</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Popup untuk Syarat dan Ketentuan Dana Pinjam -->
+  <div id="termsModalDanaPinjam" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModalDanaPinjam">&times;</span>
+      <div class="modal-body">
+        <h2>Syarat dan Ketentuan Dana Pinjam</h2>
+        <p><strong>1. Perihal Administrasi:</strong></p>
+        <ul>
+          <li>Pinjaman ≤ Rp 800.000,00: Biaya Administrasi Rp 20.000,00</li>
+          <li>Pinjaman > Rp 900.000,00 s/d Rp 1.499.000,00: Biaya Administrasi Rp 50.000,00</li>
+          <li>Pinjaman > Rp 1.500.000,00 s/d Rp 1.999.000,00: Biaya Administrasi Rp 75.000,00</li>
+          <li>Pinjaman > Rp 2.000.000,00 s/d Rp 4.999.000: Biaya Administrasi Rp 100.000,00</li>
+          <li>Pinjaman > Rp 5.000.000,00: Biaya Administrasi 2,5% dari total pinjaman</li>
+        </ul>
+        <p><strong>2. Perihal Jaminan:</strong></p>
+        <ul>
+          <li>Pinjaman < Rp 2.999.000,00: Diperbolehkan Tanpa Jaminan</li>
+          <li>Pinjaman > Rp 3.000.000,00: Wajib menggunakan Jaminan</li>
+          <li>Jika tidak ada jaminan, dikenakan biaya tambahan sebesar 2,5% dari total pinjaman</li>
+        </ul>
+        <p><strong>3. Perihal Tenor:</strong></p>
+        <ul>
+          <li>Pinjaman < Rp 999.000,00: Tenor Max 1 bulan</li>
+          <li>Pinjaman > Rp 1.000.000,00 s/d Rp 1.999.000,00: Tenor Max 2 bulan</li>
+          <li>Pinjaman > Rp 2.000.000,00: Tenor Max 3 bulan</li>
+          <li>Pinjaman > Rp 5.000.000,00: Tenor Max 4 bulan</li>
+        </ul>
+        <p><strong>4. Perihal Keterlambatan:</strong></p>
+        <ul>
+          <li>Keterlambatan 1 s/d 5 Hari: Denda 5% dari total cicilan</li>
+          <li>Keterlambatan 6 s/d 30 Hari: Denda 10% dari total cicilan</li>
+          <li>Keterlambatan tanpa konfirmasi: Penagihan ke lokasi + Denda</li>
+        </ul>
+        <label>
+          <input type="checkbox" id="agreeCheckboxDanaPinjam"> Saya setuju dengan Syarat dan Ketentuan Dana Pinjam
+        </label>
+        <br>
+        <button class="button" id="confirmButtonDanaPinjam" disabled>Setuju dan Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Popup untuk Syarat dan Ketentuan Dana Cepat -->
+  <div id="termsModalDanaCepat" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModalDanaCepat">&times;</span>
+      <div class="modal-body">
+        <h2>Syarat dan Ketentuan <b>Dana Cepat</b></h2>
+        <p><strong>1. Perihal Administrasi:</strong></p>
+        <ul>
+          <li>Produk <b>Dana Cepat</b> tidak dikenakan bunga, namun dikenakan <b>biaya jasa sebesar 10%</b> dari total pinjaman.</li>
+        </ul>
+
+        <p><strong>2. Perihal Tenor:</strong></p>
+        <ul>
+          <li>Pinjaman pada <b>Dana Cepat</b> dapat dicicil dengan tenor maksimal <b>1 bulan</b>.</li>
+        </ul>
+
+        <p><strong>3. Perihal Keterlambatan:</strong></p>
+        <ul>
+          <li>Keterlambatan 1 s/d 5 Hari: Denda <b>5%</b> dari total cicilan yang terutang.</li>
+          <li>Keterlambatan 6 s/d 30 Hari: Denda <b>10%</b> dari total cicilan yang terutang.</li>
+          <li>Keterlambatan tanpa konfirmasi: <b>Penagihan ke lokasi</b> dan dikenakan <b>denda tambahan</b>.</li>
+        </ul>
+        <label>
+          <input type="checkbox" id="agreeCheckboxDanaCepat"> Saya setuju dengan Syarat dan Ketentuan Dana Cepat
+        </label>
+        <br>
+        <button class="button" id="confirmButtonDanaCepat" disabled>Setuju dan Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Popup untuk Syarat dan Ketentuan Cicil Barang -->
+  <div id="termsModalCicilBarang" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModalCicilBarang">&times;</span>
+      <div class="modal-body">
+        <h2>Syarat dan Ketentuan Cicil Barang</h2>
+        <p><strong>1. Perihal Pembelian Barang:</strong></p>
+        <ul>
+          <li>Produk <b>Cicil Barang</b> hanya dapat digunakan untuk membeli barang melalui <b>online shop</b> atau <b>e-commerce</b>.</li>
+          <li>Pelanggan wajib mengirimkan <b>link barang</b> yang ingin dibeli melalui <b>online shop</b> kepada <b>nomor WhatsApp admin</b>.</li>
+          <li>Barang akan diproses setelah admin menerima dan menyetujui barang yang dipilih.</li>
+        </ul>
+
+        <p><strong>2. Perihal Pengiriman Barang:</strong></p>
+        <ul>
+          <li>Setelah persetujuan admin, pelanggan wajib mengirimkan <b>alamat pengiriman barang</b> yang lengkap dan valid.</li>
+          <li>Barang akan dikirimkan ke alamat yang telah disetujui oleh pelanggan.</li>
+        </ul>
+
+        <p><strong>3. Perihal Kerusakan atau Ketidaksesuaian Barang:</strong></p>
+        <ul>
+          <li>Pelanggan wajib membuat <b>Video unboxing</b> saat menerima barang untuk memastikan kondisi barang saat diterima.</li>
+          <li>Jika terdapat kerusakan atau ketidaksesuaian, video unboxing akan digunakan untuk proses klaim dan pengembalian barang.</li>
+        </ul>
+
+        <p><strong>4. Perihal Keterlambatan:</strong></p>
+        <ul>
+          <li>Keterlambatan pengiriman barang akan diinformasikan kepada pelanggan oleh admin.</li>
+        </ul>
+
+        <p><strong>5. Perihal Pembayaran dan Cicilan:</strong></p>
+        <ul>
+          <li>Pembayaran barang dilakukan dengan sistem cicilan sesuai kesepakatan antara pelanggan dan admin.</li>
+          <li>Pelanggan diwajibkan untuk <b>membayar cicilan tepat waktu</b> sesuai ketentuan yang berlaku.</li>
+        </ul>
+
+        <label>
+          <input type="checkbox" id="agreeCheckboxCicilBarang"> Saya setuju dengan Syarat dan Ketentuan Cicil Barang
+        </label>
+        <br>
+        <button class="button" id="confirmButtonCicilBarang" disabled>Setuju dan Lanjutkan</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Buka modal syarat dan ketentuan untuk Dana Pinjam
+    document.getElementById('openModalButtonDanaPinjam').onclick = function() {
+      document.getElementById('termsModalDanaPinjam').style.display = "block";
+    }
+
+    // Buka modal syarat dan ketentuan untuk Dana Cepat
+    document.getElementById('openModalButtonDanaCepat').onclick = function() {
+      document.getElementById('termsModalDanaCepat').style.display = "block";
+    }
+
+    // Buka modal syarat dan ketentuan untuk Cicil Barang
+    document.getElementById('openModalButtonCicilBarang').onclick = function() {
+      document.getElementById('termsModalCicilBarang').style.display = "block";
+    }
+
+    // Tutup modal untuk Dana Pinjam
+    document.getElementById('closeModalDanaPinjam').onclick = function() {
+      document.getElementById('termsModalDanaPinjam').style.display = "none";
+    }
+
+    // Tutup modal untuk Dana Cepat
+    document.getElementById('closeModalDanaCepat').onclick = function() {
+      document.getElementById('termsModalDanaCepat').style.display = "none";
+    }
+
+    // Tutup modal untuk Cicil Barang
+    document.getElementById('closeModalCicilBarang').onclick = function() {
+      document.getElementById('termsModalCicilBarang').style.display = "none";
+    }
+
+    // Enable tombol jika checkbox disetujui untuk Dana Pinjam
+    document.getElementById('agreeCheckboxDanaPinjam').onclick = function() {
+      const confirmButton = document.getElementById('confirmButtonDanaPinjam');
+      confirmButton.disabled = !this.checked;
+    }
+
+    // Enable tombol jika checkbox disetujui untuk Dana Cepat
+    document.getElementById('agreeCheckboxDanaCepat').onclick = function() {
+      const confirmButton = document.getElementById('confirmButtonDanaCepat');
+      confirmButton.disabled = !this.checked;
+    }
+
+    // Enable tombol jika checkbox disetujui untuk Cicil Barang
+    document.getElementById('agreeCheckboxCicilBarang').onclick = function() {
+      const confirmButton = document.getElementById('confirmButtonCicilBarang');
+      confirmButton.disabled = !this.checked;
+    }
+
+    // Lanjutkan ke halaman dana pinjam jika setuju
+    document.getElementById('confirmButtonDanaPinjam').onclick = function() {
+      window.location.href = 'kalkulator.html';
+    }
+
+    // Lanjutkan ke halaman dana cepat jika setuju
+    document.getElementById('confirmButtonDanaCepat').onclick = function() {
+      window.location.href = 'dana.cepat.html';
+    }
+
+    // Lanjutkan ke halaman cicil barang jika setuju
+    document.getElementById('confirmButtonCicilBarang').onclick = function() {
+      window.location.href = 'cicil.barang.html';
+    }
+
+    // Tutup modal jika di luar modal diklik
+    window.onclick = function(event) {
+      if (event.target == document.getElementById('termsModalDanaPinjam')) {
+        document.getElementById('termsModalDanaPinjam').style.display = "none";
+      } else if (event.target == document.getElementById('termsModalDanaCepat')) {
+        document.getElementById('termsModalDanaCepat').style.display = "none";
+      } else if (event.target == document.getElementById('termsModalCicilBarang')) {
+        document.getElementById('termsModalCicilBarang').style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
