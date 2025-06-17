@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dana Cepat</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #00c896, #007bff);
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #007bff;
+      font-size: 24px;
+    }
+
+    p {
+      margin-bottom: 25px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .result-box {
+      background-color: #f1f1f1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .highlight {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    button {
+      background: linear-gradient(90deg, #00c896, #007bff);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      margin-top: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    #jaminanSection {
+      display: none;
+      margin-bottom: 15px;
+    }
+
+    #jaminanSection label {
+      display: inline-block;
+      margin-right: 15px;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
+    #peringatan {
+      color: #d62828;
+      font-size: 13px;
+      margin-top: -15px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    /* Logo styling */
+    .logo-img {
+      width: 170px; /* Ukuran presisi logo */
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+
+      .logo-img {
+        width: 120px; /* Ukuran logo lebih kecil pada handphone */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logodapat.png" alt="Logo Aplikasi" class="logo-img" /> <!-- Logo image responsive -->
+
+    <p>Pinjam flexible hingga Rp 500.000 tanpa bunga. Hanya biaya Jasa 10%!</p>
+
+    <!-- Input Nama Pelanggan -->
+    <label for="nama">Nama Anda</label>
+    <input type="text" id="nama" name="nama" placeholder="Masukkan Nama Anda" required>
+
+    <label for="nominal">Jumlah Pinjaman</label>
+    <input type="text" id="nominal" name="nominal" maxlength="7" placeholder="Contoh: 300.000" required>
+
+    <label for="tanggalPembayaran">Tanggal Pembayaran</label>
+    <input type="date" id="tanggalPembayaran" name="tanggalPembayaran" required>
+
+    <label for="rekening">Nomor Rekening/E-Wallet</label>
+    <input type="text" id="rekening" name="rekening" placeholder="Contoh: 08123456789" required>
+
+    <label for="jenisRekening">Jenis Rekening/E-Wallet (BCA, Gopay, Ovo, dll)</label>
+    <input type="text" id="jenisRekening" name="jenisRekening" placeholder="Contoh: BCA" required>
+
+    <button type="button" onclick="hitungDana()">Hitung</button>
+
+    <div class="result-box" id="resultBox">
+      <p><strong>Biaya Jasa (10%):</strong> Rp <span id="potongan"></span></p>
+      <p><strong>Total Diterima:</strong> Rp <span id="diterima"></span></p>
+      <p><strong class="highlight">Jumlah yang harus dikembalikan:</strong> Rp <span id="dikembalikan"></span></p>
+      <p style="margin-top: 10px; font-size: 13px;">Tanpa bunga! Pengembalian sesuai jumlah yang dipinjam.</p>
+    </div>
+
+    <a id="whatsappLink" href="" target="_blank">
+      <button>Ajukan Sekarang</button>
+    </a>
+  </div>
+
+  <script>
+    // Fungsi untuk format Rupiah otomatis
+    document.getElementById('nominal').addEventListener('input', function(e) {
+      // Hapus semua karakter non-digit
+      let value = this.value.replace(/[^\d]/g, '');
+      
+      // Konversi ke number
+      let numValue = parseInt(value) || 0;
+      
+      // Batasi maksimal 500.000
+      if (numValue > 500000) {
+        numValue = 500000;
+      }
+      
+      // Format ke Rupiah
+      this.value = formatRupiahInput(numValue);
+    });
+
+    // Format untuk input (tanpa Rp)
+    function formatRupiahInput(angka) {
+      return angka.toLocaleString('id-ID');
+    }
+
+    // Format untuk output (dengan Rp)
+    function formatRupiah(angka) {
+      return angka.toLocaleString('id-ID');
+    }
+
+    // Fungsi untuk mengubah format Rupiah kembali ke angka
+    function unformatRupiah(str) {
+      return parseInt(str.replace(/\./g, '')) || 0;
+    }
+
+    function hitungDana() {
+      const inputNama = document.getElementById("nama");
+      const nama = inputNama.value.trim();
+      const inputNominal = document.getElementById("nominal");
+      const jumlah = unformatRupiah(inputNominal.value);
+      const inputTanggal = document.getElementById("tanggalPembayaran");
+      const tanggalPembayaran = inputTanggal.value;
+      const inputRekening = document.getElementById("rekening");
+      const rekening = inputRekening.value;
+      const inputJenisRekening = document.getElementById("jenisRekening");
+      const jenisRekening = inputJenisRekening.value;
+
+      if (nama === "") {
+        alert("Nama pelanggan harus diisi!");
+        return;
+      }
+
+      if (jumlah <= 0 || jumlah > 500000) {
+        alert("Masukkan jumlah pinjaman yang valid (maksimal Rp500.000)");
+        return;
+      }
+
+      const potongan = Math.floor(jumlah * 0.10);
+      const diterima = jumlah - potongan;
+
+      // Tampilkan hasil perhitungan di halaman
+      document.getElementById("potongan").textContent = formatRupiah(potongan);
+      document.getElementById("diterima").textContent = formatRupiah(diterima);
+      document.getElementById("dikembalikan").textContent = formatRupiah(jumlah);
+      document.getElementById("resultBox").style.display = "block";
+
+      // Update link WhatsApp dengan pesan otomatis
+      const whatsappLink = document.getElementById("whatsappLink");
+      const message = encodeURIComponent(
+        `Hai, saya ${nama},\n\n` +
+        `Saya ingin mengajukan Dana Cepat dengan nominal Rp ${formatRupiah(jumlah)}.\n\n` +
+        `Biaya Jasa 10%: Rp ${formatRupiah(potongan)}.\n` +
+        `Jumlah yang saya terima: Rp ${formatRupiah(diterima)}.\n` +
+        `Jumlah yang harus saya kembalikan: Rp ${formatRupiah(jumlah)}.\n\n` +
+        `Tanggal pembayaran: ${tanggalPembayaran}.\n` +
+        `Nomor rekening/E-Wallet: ${rekening}.\n` +
+        `Jenis Rekening/E-Wallet: ${jenisRekening}.`
+      );
+      whatsappLink.href = `https://wa.me/6281290413077?text=${message}`;
+    }
+  </script>
+</body>
+</html>
