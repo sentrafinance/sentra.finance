@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cicil Barang - Sentra Finance</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #00c896, #007bff);
+      margin: 0;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 25px 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+      color: #007bff;
+      font-size: 24px;
+    }
+
+    p {
+      margin-bottom: 25px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      display: block;
+      margin-bottom: 5px;
+      text-align: left;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    }
+
+    .result-box {
+      background-color: #f1f1f1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .highlight {
+      color: #007bff;
+      font-weight: bold;
+    }
+
+    button {
+      background: linear-gradient(90deg, #00c896, #007bff);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      width: 100%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+      margin-top: 10px;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
+
+    /* Logo Styling */
+    .logo-img {
+      width: 150px; /* Ukuran logo presisi */
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 20px;
+      }
+
+      button {
+        font-size: 15px;
+      }
+
+      .logo-img {
+        width: 120px; /* Ukuran logo lebih kecil pada handphone */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="logocibar.png" alt="Logo Aplikasi" class="logo-img" /> <!-- Logo Cicil Barang -->
+    <p>Cicil Barang Jadi Mudah, Cicilan Lebih Murah!</p>
+
+    <!-- Form Input -->
+    <label for="namaPelanggan">Nama Pelanggan</label>
+    <input type="text" id="namaPelanggan" placeholder="Masukkan Nama Anda" required>
+
+    <label for="namaBarang">Nama Barang</label>
+    <input type="text" id="namaBarang" placeholder="Contoh: Handphone/TV/Kulkas" required />
+
+    <label for="merkBarang">Merk Barang</label>
+    <input type="text" id="merkBarang" placeholder="Contoh: iPhone/Samsung" required />
+
+    <label for="hargaBarang">Harga Barang (Rp)</label>
+    <input type="text" id="hargaBarang" placeholder="Contoh: 5.000.000" required />
+
+    <label for="tenor">Tenor Cicilan (bulan)</label>
+    <select id="tenor" required>
+      <option value="">Pilih tenor</option>
+      <option value="1">1 bulan</option>
+      <option value="2">2 bulan</option>
+      <option value="3">3 bulan</option>
+      <option value="4">4 bulan</option>
+      <option value="5">5 bulan</option>
+      <option value="6">6 bulan</option>
+    </select>
+
+    <label for="tanggalCicilan">Tanggal Cicilan</label>
+    <input type="date" id="tanggalCicilan" required />
+
+    <button onclick="hitungCicilan()">Hitung</button>
+
+    <!-- Hasil Perhitungan -->
+    <div class="result-box" id="hasilSection">
+      <p><strong>Nama Barang:</strong> <span id="hasilNamaBarang">-</span></p>
+      <p><strong>Merk:</strong> <span id="hasilMerkBarang">-</span></p>
+      <p><strong>Harga:</strong> Rp <span id="hasilHargaBarang">-</span></p>
+      <p><strong class="highlight">Cicilan per Bulan:</strong> Rp <span id="hasilCicilan">-</span></p>
+    </div>
+
+    <a id="whatsappLink" href="" target="_blank">
+      <button>Ajukan Sekarang</button>
+    </a>
+  </div>
+
+  <script>
+    // Format Rupiah
+    function formatRupiah(angka) {
+      return angka.toLocaleString('id-ID');
+    }
+
+    function unformatRupiah(str) {
+      return parseInt(str.replace(/\./g, '')) || 0;
+    }
+
+    // Hitung Cicilan
+    function hitungCicilan() {
+      const namaPelanggan = document.getElementById("namaPelanggan").value.trim();
+      const namaBarang = document.getElementById("namaBarang").value.trim();
+      const merkBarang = document.getElementById("merkBarang").value.trim();
+      const hargaBarang = unformatRupiah(document.getElementById("hargaBarang").value);
+      const tenor = parseInt(document.getElementById("tenor").value);
+      const tanggalCicilan = document.getElementById("tanggalCicilan").value;
+
+      // Validasi
+      if (!namaPelanggan || !namaBarang || !merkBarang || !hargaBarang || !tenor || !tanggalCicilan) {
+        alert("Harap lengkapi semua data!");
+        return;
+      }
+
+      // Kalkulasi
+      const bungaPerBulan = hargaBarang * 0.045;
+      const totalBunga = bungaPerBulan * tenor;
+      const cicilanPerBulan = (hargaBarang + totalBunga) / tenor;
+
+      // Tampilkan hasil (tanpa menampilkan bunga)
+      document.getElementById("hasilNamaBarang").textContent = namaBarang;
+      document.getElementById("hasilMerkBarang").textContent = merkBarang;
+      document.getElementById("hasilHargaBarang").textContent = formatRupiah(hargaBarang);
+      document.getElementById("hasilCicilan").textContent = formatRupiah(Math.round(cicilanPerBulan));
+      document.getElementById("hasilSection").style.display = "block";
+
+      // Update link WhatsApp dengan pesan otomatis
+      const whatsappLink = document.getElementById("whatsappLink");
+      const message = encodeURIComponent(
+        `Halo Admin Sentra Finance,\n\n` +
+        `Saya ${namaPelanggan} ingin mengajukan cicilan barang dengan detail berikut:\n\n` +
+        `🔹 Nama Barang: ${namaBarang}\n` +
+        `🔹 Merk: ${merkBarang}\n` +
+        `🔹 Harga: Rp ${formatRupiah(hargaBarang)}\n` +
+        `🔹 Tenor: ${tenor} bulan\n` +
+        `🔹 Tanggal Cicilan: ${tanggalCicilan}\n\n` +
+        `Cicilan per Bulan: Rp ${formatRupiah(Math.round(cicilanPerBulan))}\n\n` +
+        `Mohon konfirmasi persetujuan. Terima kasih.`
+      );
+      whatsappLink.href = `https://wa.me/6281290413077?text=${message}`;
+    }
+
+    // Auto-format harga saat diketik
+    document.getElementById("hargaBarang").addEventListener("input", function() {
+      let num = unformatRupiah(this.value);
+      this.value = formatRupiah(num);
+    });
+  </script>
+</body>
+</html>
