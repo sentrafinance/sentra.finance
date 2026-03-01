@@ -264,7 +264,7 @@
         peringatan.style.display = "none";
       }
 
-      const cicilan = (pinjaman / tenor) + (pinjaman / 12.6);
+      const cicilan = (pinjaman / tenor) + (pinjaman / 10.6);
       const totalDiterima = pinjaman - admin - tambahan;
 
       hasilCicilan = "Rp " + formatRupiah(Math.round(cicilan));
