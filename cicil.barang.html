@@ -117,16 +117,16 @@
     <p>Cicil Barang Jadi Mudah, Cicilan Lebih Murah!</p>
 
     <!-- Form Input -->
-    <label for="namaPelanggan">Nama Pelanggan</label>
+    <label for="namaPelanggan">Nama Nasabah</label>
     <input type="text" id="namaPelanggan" placeholder="Masukkan Nama Anda" required>
 
-    <label for="namaBarang">Nama Barang</label>
+    <label for="namaBarang">Jenis Barang</label>
     <input type="text" id="namaBarang" placeholder="Contoh: Handphone/TV/Kulkas" required />
 
     <label for="merkBarang">Merk Barang</label>
     <input type="text" id="merkBarang" placeholder="Contoh: iPhone/Samsung" required />
 
-    <label for="hargaBarang">Harga Barang (Rp)</label>
+    <label for="hargaBarang">Nominal Pengajuan (Rp)</label>
     <input type="text" id="hargaBarang" placeholder="Contoh: 5.000.000" required />
 
     <label for="tenor">Tenor Cicilan (bulan)</label>
@@ -199,10 +199,10 @@
       const whatsappLink = document.getElementById("whatsappLink");
       const message = encodeURIComponent(
         `Halo Admin Sentra Finance,\n\n` +
-        `Saya ${namaPelanggan} ingin mengajukan cicilan barang dengan detail berikut:\n\n` +
-        `🔹 Nama Barang: ${namaBarang}\n` +
+        `Saya ${namaPelanggan} ingin mengajukan dana gadai dengan detail berikut:\n\n` +
+        `🔹 jenis Barang: ${namaBarang}\n` +
         `🔹 Merk: ${merkBarang}\n` +
-        `🔹 Harga: Rp ${formatRupiah(hargaBarang)}\n` +
+        `🔹 Pengajuan: Rp ${formatRupiah(hargaBarang)}\n` +
         `🔹 Tenor: ${tenor} bulan\n` +
         `🔹 Tanggal Cicilan: ${tanggalCicilan}\n\n` +
         `Cicilan per Bulan: Rp ${formatRupiah(Math.round(cicilanPerBulan))}\n\n` +
