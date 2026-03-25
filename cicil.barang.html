@@ -114,7 +114,7 @@
 <body>
   <div class="container">
     <img src="logocibar.png" alt="Logo Aplikasi" class="logo-img" /> <!-- Logo Cicil Barang -->
-    <p>Cicil Barang Jadi Mudah, Cicilan Lebih Murah!</p>
+    <p>Gadai Aman, Pengembalian Ringan!</p>
 
     <!-- Form Input -->
     <label for="namaPelanggan">Nama Nasabah</label>
@@ -133,11 +133,6 @@
     <select id="tenor" required>
       <option value="">Pilih tenor</option>
       <option value="1">1 bulan</option>
-      <option value="2">2 bulan</option>
-      <option value="3">3 bulan</option>
-      <option value="4">4 bulan</option>
-      <option value="5">5 bulan</option>
-      <option value="6">6 bulan</option>
     </select>
 
     <label for="tanggalCicilan">Tanggal Cicilan</label>
@@ -184,7 +179,7 @@
       }
 
       // Kalkulasi
-      const bungaPerBulan = hargaBarang * 0.045;
+      const bungaPerBulan = hargaBarang * 0.070;
       const totalBunga = bungaPerBulan * tenor;
       const cicilanPerBulan = (hargaBarang + totalBunga) / tenor;
 
@@ -205,7 +200,7 @@
         `🔹 Pengajuan: Rp ${formatRupiah(hargaBarang)}\n` +
         `🔹 Tenor: ${tenor} bulan\n` +
         `🔹 Tanggal Cicilan: ${tanggalCicilan}\n\n` +
-        `Cicilan per Bulan: Rp ${formatRupiah(Math.round(cicilanPerBulan))}\n\n` +
+        `Pengembalian Bulan Depan: Rp ${formatRupiah(Math.round(cicilanPerBulan))}\n\n` +
         `Mohon konfirmasi persetujuan. Terima kasih.`
       );
       whatsappLink.href = `https://wa.me/62881080622877?text=${message}`;
