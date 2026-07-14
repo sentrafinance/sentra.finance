@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Kalkulator Dana Gadai - Sentra Finance</title>
 
+
 <style>
 
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #00c896, #007bff);
+    font-family:'Segoe UI', sans-serif;
+    background:linear-gradient(135deg,#00c896,#007bff);
     margin:0;
     padding:30px;
     display:flex;
@@ -25,11 +27,15 @@ body {
     background:white;
     border-radius:16px;
     padding:25px 30px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+
+    box-shadow:
+    0 4px 12px rgba(0,0,0,0.1);
 
     max-width:420px;
     width:100%;
+
 }
+
 
 
 h2 {
@@ -37,7 +43,9 @@ h2 {
     text-align:center;
     color:#007bff;
     margin-bottom:5px;
+
 }
+
 
 
 .subtitle {
@@ -48,6 +56,7 @@ h2 {
     margin-bottom:25px;
 
 }
+
 
 
 .logo-img {
@@ -71,8 +80,8 @@ label {
 }
 
 
-input, select {
 
+input, select {
 
     width:100%;
     padding:10px;
@@ -88,10 +97,11 @@ input, select {
 }
 
 
+
 button {
 
-
-    background:linear-gradient(90deg,#00c896,#007bff);
+    background:
+    linear-gradient(90deg,#00c896,#007bff);
 
     color:white;
 
@@ -109,9 +119,11 @@ button {
 
     cursor:pointer;
 
-    box-shadow:0 3px 8px rgba(0,0,0,0.15);
+    box-shadow:
+    0 3px 8px rgba(0,0,0,0.15);
 
 }
+
 
 
 button:hover {
@@ -121,8 +133,8 @@ button:hover {
 }
 
 
-.result-box {
 
+.result-box {
 
     margin-top:20px;
 
@@ -139,6 +151,7 @@ button:hover {
 }
 
 
+
 .highlight {
 
     color:#007bff;
@@ -146,6 +159,25 @@ button:hover {
     font-weight:bold;
 
 }
+
+
+
+.note {
+
+    font-size:12px;
+
+    color:#666;
+
+    line-height:1.5;
+
+    margin-top:15px;
+
+    text-align:left;
+
+    display:none;
+
+}
+
 
 
 @media(max-width:480px){
@@ -158,7 +190,9 @@ padding:20px;
 
 }
 
+
 </style>
+
 
 </head>
 
@@ -172,7 +206,9 @@ padding:20px;
 <img src="logocibar.png" class="logo-img">
 
 
-<h2>Kalkulator Dana Gadai</h2>
+<h2>
+Kalkulator Dana Gadai
+</h2>
 
 
 <p class="subtitle">
@@ -181,96 +217,170 @@ Gadai Aman, Pengembalian Ringan
 
 
 
-<!-- FORM -->
 
-<label>Nama Nasabah</label>
+<label>
+Nama Nasabah
+</label>
 
 <input 
-type="text" 
+type="text"
 id="nama"
 placeholder="Masukkan Nama Anda">
 
 
 
-<label>Nomor WhatsApp</label>
+
+
+<label>
+Nomor WhatsApp
+</label>
 
 <input 
-type="number"
+type="text"
 id="wa"
 placeholder="Contoh: 08123456789">
 
 
 
-<label>Kategori Barang</label>
+
+
+<label>
+Kategori Barang
+</label>
+
 
 <select id="kategori">
 
-<option value="">Pilih Barang</option>
 
-<option>Handphone</option>
+<option value="">
+Pilih Barang
+</option>
 
-<option>Laptop</option>
 
-<option>Kamera</option>
+<option>
+Handphone
+</option>
 
-<option>Elektronik</option>
 
-<option>Kendaraan</option>
+<option>
+Laptop
+</option>
 
-<option>Emas</option>
 
-<option>Lainnya</option>
+<option>
+Kamera
+</option>
+
+
+<option>
+Elektronik
+</option>
+
+
+<option>
+Kendaraan
+</option>
+
+
+<option>
+Emas
+</option>
+
+
+<option>
+Lainnya
+</option>
+
 
 </select>
 
 
 
-<label>Merk Barang</label>
 
-<input 
+
+<label>
+Merk Barang
+</label>
+
+
+<input
 type="text"
 id="merk"
 placeholder="Contoh: Apple / Samsung">
 
 
 
-<label>Tipe / Model Barang</label>
 
-<input 
+
+<label>
+Tipe / Model Barang
+</label>
+
+
+<input
 type="text"
 id="model"
 placeholder="Contoh: iPhone 15 Pro Max 256GB">
 
 
 
-<label>Tahun Barang</label>
 
-<input 
+
+<label>
+Tahun Barang
+</label>
+
+
+<input
 type="number"
 id="tahun"
 placeholder="Contoh: 2024">
 
 
 
-<label>Kondisi Barang</label>
+
+
+<label>
+Kondisi Barang
+</label>
+
 
 <select id="kondisi">
 
 
-<option value="">Pilih Kondisi</option>
+<option value="">
+Pilih Kondisi
+</option>
 
-<option>Baru</option>
 
-<option>Like New</option>
+<option>
+Baru
+</option>
 
-<option>Baik</option>
 
-<option>Cukup</option>
+<option>
+Like New
+</option>
 
-<option>Rusak Ringan</option>
+
+<option>
+Baik
+</option>
+
+
+<option>
+Cukup
+</option>
+
+
+<option>
+Rusak Ringan
+</option>
 
 
 </select>
+
+
 
 
 
@@ -286,21 +396,34 @@ placeholder="Contoh: 10000000">
 
 
 
-<label>Tenor Gadai</label>
+
+
+<label>
+Tenor Gadai
+</label>
+
 
 <select id="tenor">
 
 
-<option value="">Pilih Tenor</option>
+<option value="">
+Pilih Tenor
+</option>
 
-<option value="1">1 Bulan</option>
 
-<option value="2">2 Bulan</option>
+<option value="14">
+14 Hari
+</option>
 
-<option value="3">3 Bulan</option>
+
+<option value="30">
+1 Bulan
+</option>
 
 
 </select>
+
+
 
 
 
@@ -309,6 +432,9 @@ placeholder="Contoh: 10000000">
 Hitung Estimasi Gadai
 
 </button>
+
+
+
 
 
 
@@ -346,8 +472,9 @@ Rp <span id="hasilDana"></span>
 
 
 <p>
-
-<b>Estimasi Pelunasan:</b>
+<b>
+Estimasi Pelunasan:
+</b>
 
 Rp <span id="hasilPelunasan"></span>
 
@@ -358,15 +485,35 @@ Rp <span id="hasilPelunasan"></span>
 
 
 
+
+<p class="note" id="noteText">
+
+
+Nominal pencairan bersifat estimasi, nominal pasti akan diinformasikan melalui WhatsApp admin setelah melakukan pengecekan kondisi barang dan harga pasar terbaru.
+
+<br><br>
+
+Silahkan klik "Ajukan Sekarang!" untuk melanjutkan proses.
+
+
+</p>
+
+
+
+
 <a id="waLink" target="_blank">
+
 
 <button style="margin-top:15px">
 
-Ajukan Sekarang
+Ajukan Sekarang!
 
 </button>
 
+
 </a>
+
+
 
 
 </div>
@@ -399,7 +546,6 @@ str.replace(/\./g,'')
 
 
 function hitungGadai(){
-
 
 
 let nama =
@@ -453,7 +599,6 @@ if(
 !kondisi ||
 !harga ||
 !tenor
-
 ){
 
 alert("Harap lengkapi semua data!");
@@ -464,9 +609,10 @@ return;
 
 
 
-// ======================
+
+// =====================
 // PERHITUNGAN GADAI
-// ======================
+// =====================
 
 
 // maksimal 70%
@@ -476,10 +622,32 @@ harga * 0.70;
 
 
 
-// bunga gadai 7% per bulan
+// bunga 1 bulan 7%
 
-let bunga =
-danaGadai * 0.07 * tenor;
+let bunga1Bulan =
+danaGadai * 0.07;
+
+
+
+let bunga;
+
+
+if(tenor == 14){
+
+    // 14 hari = 50% bunga bulanan
+
+    bunga =
+    bunga1Bulan * 0.5;
+
+}
+
+else{
+
+    bunga =
+    bunga1Bulan;
+
+}
+
 
 
 
@@ -527,9 +695,25 @@ document.getElementById("hasil")
 
 
 
+document.getElementById("noteText")
+.style.display="block";
 
 
+
+
+
+// =====================
 // WHATSAPP
+// =====================
+
+
+let namaTenor =
+tenor == 14
+?
+"14 Hari"
+:
+"1 Bulan";
+
 
 
 let pesan =
@@ -550,22 +734,31 @@ Tahun : ${tahun}
 
 Kondisi : ${kondisi}
 
+
 Estimasi Harga Pasar:
+
 Rp ${formatRupiah(harga)}
 
+
 Estimasi Dana Gadai:
+
 Rp ${formatRupiah(Math.round(danaGadai))}
 
-Tenor:
-${tenor} Bulan
 
-Mohon dilakukan pengecekan dan proses penilaian barang.
+Tenor:
+
+${namaTenor}
+
+
+Mohon dilakukan pengecekan kondisi barang dan penilaian harga pasar terbaru.
 
 Terima kasih.`;
 
 
+
 document.getElementById("waLink")
 .href =
+
 "https://wa.me/62881080622877?text="
 +
 encodeURIComponent(pesan);
@@ -573,6 +766,7 @@ encodeURIComponent(pesan);
 
 
 }
+
 
 
 
